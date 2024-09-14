@@ -17,6 +17,10 @@ def index():
 def form():
     return send_from_directory('templates', 'form.html')
 
+@app.route('/templates/feedback.html')
+def feedback():
+    return send_from_directory('templates', 'feedback.html')
+
 @app.route('/images/Virginia-Tech-Logo.png')
 def VTimage():
     return send_from_directory('images', 'Virginia-Tech-Logo.png')
