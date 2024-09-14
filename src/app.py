@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, send_from_directory
 import os
+import main
 
 app = Flask(__name__)
 FILES_DIR = 'files'
@@ -18,6 +19,8 @@ def save_file():
     text1 = data.get('text1')
     text2 = data.get('text2')
 
+    print(main.getStr())
+
     if not text1 or not text2:
         return jsonify({'error': 'Both text boxes must be filled out.'}), 400
 
@@ -33,3 +36,5 @@ def save_file():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+

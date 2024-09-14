@@ -5,10 +5,9 @@ NUMBER_OF_DATA_PER_PROFESOR = 3
 
 
 if (len(sys.argv) < 2):
-    print("no data given")
-    quit()
-
-file = open(sys.argv[1], "r")
+    file = open("DummyData.txt")
+else:
+    file = open(sys.argv[1], "r")
 
 allCourse = []
 
