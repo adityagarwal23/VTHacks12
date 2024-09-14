@@ -25,8 +25,10 @@ for i in file:
 
 allCourse.sort()
 
-for i in allCourse:
-    print(i)
+
+def getStr():
+    for i in allCourse:
+        print(i)
 
 
 
