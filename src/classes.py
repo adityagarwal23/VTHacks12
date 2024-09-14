@@ -25,4 +25,3 @@ class Profesor:
     def __str__(self) -> str:
         return self.firstName + " " + self.lastName + " Dif: " + self.difficulty.__str__()
 
-
