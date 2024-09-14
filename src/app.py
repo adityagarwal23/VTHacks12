@@ -41,7 +41,7 @@ def VTimage():
 def getData():
     data = request.json
 
-    department = date.get("department")
+    department = data.get("department")
     course_number = data.get("course_number")
 
     if not all([department, course_number]):
