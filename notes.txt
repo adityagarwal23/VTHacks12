@@ -1,4 +1,0 @@
-each event will have a day, time, description, and title.
-We will store all their data on a text file.
-Add multiple buttons for adding, deleting, and submitting 
-Date pickers for picking the dates, weeks, and months 
