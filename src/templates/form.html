@@ -141,13 +141,17 @@
         function submitForm() {
             const text1 = document.getElementById('text1').value;
             const text2 = document.getElementById('text2').value;
+            const text3 = document.getElementById('text3').value;
+            const text4 = document.getElementById('text4').value;
+            const text5 = document.getElementById('text5').value;
+            const text6 = document.getElementById('text6').value;
 
             fetch('/save-file', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ text1, text2 })
+                body: JSON.stringify({ text1, text2, text3, text4, text5, text6 })
             })
             .then(response => response.json())
             .then(result => alert(result.message || result.error))

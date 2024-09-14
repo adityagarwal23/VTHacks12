@@ -30,22 +30,28 @@ def save_file():
     data = request.json
     text1 = data.get('text1')
     text2 = data.get('text2')
+    text3 = data.get('text3')
+    text4 = data.get('text4')
+    text5 = data.get('text5')
+    text6 = data.get('text6')
+
+    # if not text1 or not text2 or not text3 or not text4 or not text5 or not text6:
+    #     return jsonify({'error': 'Both text boxes must be filled out.'}), 400
+    
     with open('data.txt', 'a') as file:
-        file.write(f'Department: {text1}, Course Number: {text2}\n')
+        file.write(f'{text1}, {text2}, {text3}, {text4}, {text5}, {text6}\n')
     return jsonify({'message': 'Data saved successfully'})
 
-    if not text1 or not text2:
-        return jsonify({'error': 'Both text boxes must be filled out.'}), 400
+    
+    # file_content = f'Text Box 1: {text1}\nText Box 2: {text2}'
+    # file_path = os.path.join(FILES_DIR, 'output.txt')
 
-    file_content = f'Text Box 1: {text1}\nText Box 2: {text2}'
-    file_path = os.path.join(FILES_DIR, 'output.txt')
-
-    try:
-        with open(file_path, 'w') as file:
-            file.write(file_content)
-        return jsonify({'message': 'File saved successfully.'})
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+    # try:
+    #     with open(file_path, 'w') as file:
+    #         file.write(file_content)
+    #     return jsonify({'message': 'File saved successfully.'})
+    # except Exception as e:
+    #     return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
