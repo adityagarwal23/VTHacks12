@@ -9,6 +9,11 @@ class Course:
     def __str__(self) -> str:
         return self.subject + " " + self.number.__str__() + " : " + [i.__str__() for i in self.profesorList].__str__()
 
+    def __lt__(self, other):
+        if self.subject != other.subject:
+            return self.subject < other.subject
+        return self.number < other.number
+
 
 
 class Profesor:
