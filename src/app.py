@@ -13,6 +13,14 @@ if not os.path.exists(FILES_DIR):
 def index():
     return send_from_directory('templates', 'index.html')
 
+@app.route('/templates/form.html')
+def form():
+    return send_from_directory('templates', 'form.html')
+
+@app.route('/images/Virginia-Tech-Logo.png')
+def VTimage():
+    return send_from_directory('images', 'Virginia-Tech-Logo.png')
+
 @app.route('/save-file', methods=['POST'])
 def save_file():
     data = request.json
