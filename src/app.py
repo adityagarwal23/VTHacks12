@@ -1,8 +1,6 @@
-#testing
 from flask import Flask, request, jsonify, send_from_directory, render_template_string
 import sqlite3
 import os
-import main
 
 app = Flask(__name__)
 FILES_DIR = 'files'
@@ -38,24 +36,47 @@ def VTimage():
     return send_from_directory('images', 'Virginia-Tech-Logo.png')
 
 @app.route('/get-data', methods=['POST'])
-def getData():
+def get_data():
     data = request.json
+    department = data.get('department')
+    course_number = data.get('course_number')
 
-    department = data.get("department")
-    course_number = data.get("course_number")
+    if not department or not course_number:
+        return jsonify({'error': 'Department and course number are required.'}), 400
 
-    if not all([department, course_number]):
-        return jsonify({'error': 'All fields must be filled out.'}), 400
+    try:
+        conn = get_db()
+        cursor = conn.cursor()
+        cursor.execute('''
+            SELECT professor_last_name,
+                   AVG(exam_difficulty) AS avg_exam_difficulty,
+                   AVG(exam_score) AS avg_exam_score,
+                   AVG(hours_spent_studying) AS avg_hours_spent_studying
+            FROM exams
+            WHERE department = ? AND course_number = ?
+            GROUP BY professor_last_name
+        ''', (department, course_number))
 
-    
-    return jsonify({'error': department + course_number}), 500
+        rows = cursor.fetchall()
+        conn.close()
 
+        # Prepare results for the front end
+        results = []
+        for row in rows:
+            results.append({
+                'professor_last_name': row[0],
+                'avg_exam_difficulty': row[1],
+                'avg_exam_score': row[2],
+                'avg_hours_spent_studying': row[3]
+            })
 
+        return jsonify(results)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/save-file', methods=['POST'])
 def save_file():
     data = request.json
-
     department = data.get('department')
     course_number = data.get('course_number')
     professor_last_name = data.get('professor_last_name')
@@ -63,11 +84,8 @@ def save_file():
     exam_score = data.get('exam_score')
     hours_spent_studying = data.get('hours_spent_studying')
 
-    
-
     if not all([department, course_number, professor_last_name, exam_difficulty, exam_score, hours_spent_studying]):
         return jsonify({'error': 'All fields must be filled out.'}), 400
-
     try:
         conn = get_db()
         cursor = conn.cursor()
@@ -80,34 +98,6 @@ def save_file():
         return jsonify({'message': 'Data saved successfully.'})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-
-    # if not text1 or not text2 or not text3 or not text4 or not text5 or not text6:
-    #     return jsonify({'error': 'Both text boxes must be filled out.'}), 400
-    
-    with open('data.txt', 'a') as file:
-        file.write(f'{text1}, {text2}, {text3}, {text4}, {text5}, {text6}\n')
-    return jsonify({'message': 'Data saved successfully'})
-
-@app.route('/templates/previousExam.html')
-def home():
-    # Read the contents of the text file
-    with open('data.txt', 'r') as file:
-        file_content = file.read()
-    
-    # Pass the content to the template
-    return render_template_string('previousExam.html', file_content=file_content)
-
-    
-    # file_content = f'Text Box 1: {text1}\nText Box 2: {text2}'
-    # file_path = os.path.join(FILES_DIR, 'output.txt')
-
-    # try:
-    #     with open(file_path, 'w') as file:
-    #         file.write(file_content)
-    #     return jsonify({'message': 'File saved successfully.'})
-    # except Exception as e:
-    #     return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -3,82 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Previous Exams Data</title>
+    <title>Previous Exams</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             background-color: maroon;
             color: white;
             margin: 0;
             padding: 0;
-            text-align: center;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
         }
-
-        h1 {
-            color: orange;
-            font-size: 24px;
-        }
-
-        .content {
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
             background-color: #800000; /* Darker maroon */
-            color: white;
-            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            max-width: 80%;
-            text-align: left;
-            overflow: auto; /* Adds scroll if content is too large */
+            padding: 20px;
         }
-
-        form {
-            margin-top: 20px;
-        }
-
-        input[type="text"] {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: none;
-            width: 200px;
-        }
-
         button {
-            padding: 10px 20px;
             background-color: orange;
-            color: white;
+            color: maroon;
             border: none;
+            padding: 10px 20px;
             border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
         }
-
         button:hover {
-            background-color: #ff9933;
+            background-color: #ff9933; /* Lighter orange */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid white;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #800000;
         }
     </style>
 </head>
 <body>
-    <h1>Below are the previous exams data</h1>
-
-    <form action="/submit" method="POST">
-        <input type="text" name="department" placeholder="Department" required>
-        <input type="text" name="courseNumber" placeholder="Course Number" required>
-        <button type="submit">Submit</button>
-    </form>
+    <div class="container">
+        <h1>Search Previous Exams</h1>
+        <form id="queryForm">
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department"><br>
+            <label for="course_number">Course Number:</label>
+            <input type="text" id="course_number" name="course_number"><br>
+            <button type="button" onclick="submitQuery()">Submit</button>
+        </form>
+        <div id="results"></div>
+    </div>
 
     <script>
-        document.getElementById('loadContent').addEventListener('click', function() {
-            fetch('/text-content')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('textContent').textContent = data.content;
-                })
-                .catch(error => console.error('Error:', error));
-        });
+        function submitQuery() {
+            const department = document.getElementById('department').value;
+            const course_number = document.getElementById('course_number').value;
+
+            fetch('/get-data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ department, course_number })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultsDiv = document.getElementById('results');
+                if (data.error) {
+                    resultsDiv.innerHTML = `<p>${data.error}</p>`;
+                } else {
+                    let html = '<table><tr><th>Professor Last Name</th><th>Average Exam Difficulty</th><th>Average Exam Score</th><th>Average Hours Spent Studying</th></tr>';
+                    data.forEach(row => {
+                        html += `<tr>
+                            <td>${row.professor_last_name}</td>
+                            <td>${row.avg_exam_difficulty}</td>
+                            <td>${row.avg_exam_score}</td>
+                            <td>${row.avg_hours_spent_studying}</td>
+                        </tr>`;
+                    });
+                    html += '</table>';
+                    resultsDiv.innerHTML = html;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
     </script>
 </body>
 </html>
