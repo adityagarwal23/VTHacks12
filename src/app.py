@@ -51,12 +51,12 @@ def save_file():
     department = data.get('department')
     course_number = data.get('course_number')
     professor_last_name = data.get('professor_last_name')
-    exam_difficulty = data.get('exam difficulty')
+    exam_difficulty = data.get('exam_difficulty')
     exam_score = data.get('exam_score')
     hours_spent_studying = data.get('hours_spent_studying')
     
 
-    if all([department, course_number, professor_last_name, exam_difficulty, exam_score, hours_spent_studying]):
+    if not all([department, course_number, professor_last_name, exam_difficulty, exam_score, hours_spent_studying]):
         return jsonify({'error': 'All fields must be filled out.'}), 400
     try:
         conn = get_db()
