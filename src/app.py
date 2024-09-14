@@ -39,6 +39,7 @@ def VTimage():
 
 @app.route('/get-data', methods=['POST'])
 def getData():
+
     return "some HTML"
 
 
@@ -51,7 +52,7 @@ def save_file():
     # text4 = data.get('text4')
     # text5 = data.get('text5')
     # text6 = data.get('text6')
-    
+    print('hiiii')
     data = request.json
     department = data.get('department')
     course_number = data.get('course_number')
@@ -59,6 +60,7 @@ def save_file():
     exam_difficulty = data.get('exam_difficulty')
     exam_score = data.get('exam_score')
     hours_spent_studying = data.get('hours_spent_studying')
+
     
 
     if not all([department, course_number, professor_last_name, exam_difficulty, exam_score, hours_spent_studying]):
