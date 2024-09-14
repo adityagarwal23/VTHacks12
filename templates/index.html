@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Text File</title>
+</head>
+<body>
+    <h1>Create a Text File</h1>
+    <form id="textForm">
+        <label for="text1">Text Box 1:</label><br>
+        <input type="text" id="text1" name="text1"><br><br>
+        <label for="text2">Text Box 2:</label><br>
+        <input type="text" id="text2" name="text2"><br><br>
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            const text1 = document.getElementById('text1').value;
+            const text2 = document.getElementById('text2').value;
+
+            fetch('/save-file', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text1, text2 })
+            })
+            .then(response => response.json())
+            .then(result => alert(result.message || result.error))
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
