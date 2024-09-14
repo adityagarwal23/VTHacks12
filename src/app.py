@@ -39,21 +39,23 @@ def VTimage():
 
 @app.route('/get-data', methods=['POST'])
 def getData():
+    data = request.json
 
-    return "some HTML"
+    department = date.get("department")
+    course_number = data.get("course_number")
+
+    if not all([department, course_number]):
+        return jsonify({'error': 'All fields must be filled out.'}), 400
+
+    
+    return jsonify({'error': department + course_number}), 500
+
 
 
 @app.route('/save-file', methods=['POST'])
 def save_file():
-    
-    # text1 = data.get('text1')
-    # text2 = data.get('text2')
-    # text3 = data.get('text3')
-    # text4 = data.get('text4')
-    # text5 = data.get('text5')
-    # text6 = data.get('text6')
-    print('hiiii')
     data = request.json
+
     department = data.get('department')
     course_number = data.get('course_number')
     professor_last_name = data.get('professor_last_name')
@@ -65,6 +67,7 @@ def save_file():
 
     if not all([department, course_number, professor_last_name, exam_difficulty, exam_score, hours_spent_studying]):
         return jsonify({'error': 'All fields must be filled out.'}), 400
+
     try:
         conn = get_db()
         cursor = conn.cursor()
