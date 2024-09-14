@@ -13,6 +13,10 @@ if not os.path.exists(FILES_DIR):
 def index():
     return send_from_directory('templates', 'index.html')
 
+@app.route('/templates/previousExam.html')
+def previousExam():
+    return send_from_directory('templates', 'previousExam.html')
+
 @app.route('/templates/form.html')
 def form():
     return send_from_directory('templates', 'form.html')
