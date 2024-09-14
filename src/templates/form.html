@@ -1,4 +1,3 @@
-#testing
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -119,18 +118,18 @@
             <h1>RateMyExam</h1>
             <h4>Created by Students for Students</h4>
             <form id="textForm">
-                <label for="text1">Department:</label>
-                <input type="text" id="text1" name="text1"><br>
-                <label for="text2">Course Number:</label>
-                <input type="text" id="text2" name="text2"><br>
-                <label for="text3">Teacher Last Name:</label>
-                <input type="text" id="text3" name="text3"><br>
-                <label for="text4">Difficulty of Exam (1-10)</label>
-                <input type="number" id="text4" name="text4"><br>
-                <label for="text5">Hours Spent Studying</label>
-                <input type="number" id="text5" name="text5"><br>
-                <label for="text6">Final Score on the Exam</label>
-                <input type="number" id="text6" name="text6"><br>
+                <label for="department">Department:</label>
+                <input type="text" id="department" name="department"><br>
+                <label for="course_number">Course Number:</label>
+                <input type="text" id="course_number" name="course_number"><br>
+                <label for="professor_last_name">Teacher Last Name:</label>
+                <input type="text" id="professor_last_name" name="professor_last_name"><br>
+                <label for="exam_difficulty">Difficulty of Exam (1-10)</label>
+                <input type="number" id="exam_difficulty" name="exam_difficulty"><br>
+                <label for="exam_score">Hours Spent Studying</label>
+                <input type="number" id="exam_score" name="exam_score"><br>
+                <label for="hours_spent_studying">Final Score on the Exam</label>
+                <input type="number" id="hours_spent_studying" name="hours_spent_studying"><br>
                 <button type="button" onclick="submitForm()">Submit</button>
             </form>
         </div>
@@ -140,12 +139,19 @@
 
     <script>
         function submitForm() {
+            console.log("najdnanjdn")
             const department = document.getElementById('department').value;
+            console.log(department)
             const course_number = document.getElementById('course_number').value;
+            console.log(course_number)
             const professor_last_name = document.getElementById('professor_last_name').value;
+            console.log(professor_last_name)
             const exam_difficulty = document.getElementById('exam_difficulty').value;
-            const exam_score = docuemnt.getElementById('exam_score').value;
+            console.log(exam_difficulty)
+            const exam_score = document.getElementById('exam_score').value;
+            console.log(exam_score)
             const hours_spent_studying = document.getElementById('hours_spent_studying').value;
+            console.log(hours_spent_studying)
             
 
             fetch('/save-file', {

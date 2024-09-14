@@ -11,11 +11,11 @@ FILES_DIR = 'files'
 if not os.path.exists(FILES_DIR):
     os.makedirs(FILES_DIR)
 
-    DATABASE = 'exams.db'
+DATABASE = 'exams.db'
 
-    def get_db():
-        conn = sqlite3.connect(DATABASE)
-        return conn
+def get_db():
+    conn = sqlite3.connect(DATABASE)
+    return conn
 
 @app.route('/')
 def index():
@@ -39,13 +39,13 @@ def VTimage():
 
 @app.route('/save-file', methods=['POST'])
 def save_file():
-    data = request.json
-    text1 = data.get('text1')
-    text2 = data.get('text2')
-    text3 = data.get('text3')
-    text4 = data.get('text4')
-    text5 = data.get('text5')
-    text6 = data.get('text6')
+    
+    # text1 = data.get('text1')
+    # text2 = data.get('text2')
+    # text3 = data.get('text3')
+    # text4 = data.get('text4')
+    # text5 = data.get('text5')
+    # text6 = data.get('text6')
     
     data = request.json
     department = data.get('department')
@@ -54,10 +54,11 @@ def save_file():
     exam_difficulty = data.get('exam difficulty')
     exam_score = data.get('exam_score')
     hours_spent_studying = data.get('hours_spent_studying')
-
-    if not all([department, course_number, professor_last_name, exam_difficulty, exam_score, hours_spent_studying]):
-        return jsonify({'error': 'All fields must be filled out.'}), 400
     
+
+    if all([department, course_number, professor_last_name, exam_difficulty, exam_score, hours_spent_studying]):
+        return jsonify({'error': 'All fields must be filled out.'}), 400
+    print("hi")
     try:
         conn = get_db()
         cursor = conn.cursor()
@@ -101,5 +102,3 @@ def home():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
