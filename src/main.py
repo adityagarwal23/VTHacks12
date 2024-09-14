@@ -29,9 +29,9 @@ def getStr():
     for i in allCourse:
         print(i)
 
-def FindeCourse(subject: str, courseNumber: int):
+def findeCourse(subject: str, courseNumber: int):
     for i in allCourse:
-        if i.subject == subject and i.courseNumber == courseNumber:
+        if i.subject == subject and i.number == courseNumber:
             return i.__str__()
 
 

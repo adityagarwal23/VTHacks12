@@ -31,7 +31,7 @@ def save_file():
     text1 = data.get('text1')
     text2 = data.get('text2')
 
-    print(main.getStr())
+    print(main.findeCourse(data.get('text1'), int(data.get('text2'))))
 
     if not text1 or not text2:
         return jsonify({'error': 'Both text boxes must be filled out.'}), 400
