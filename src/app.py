@@ -37,6 +37,11 @@ def feedback():
 def VTimage():
     return send_from_directory('images', 'Virginia-Tech-Logo.png')
 
+@app.route('/get-data', methods=['POST'])
+def getData():
+    return "some HTML"
+
+
 @app.route('/save-file', methods=['POST'])
 def save_file():
     
