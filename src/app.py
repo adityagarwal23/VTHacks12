@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory, render_template_string
 import os
 import main
 
@@ -45,6 +45,15 @@ def save_file():
     with open('data.txt', 'a') as file:
         file.write(f'{text1}, {text2}, {text3}, {text4}, {text5}, {text6}\n')
     return jsonify({'message': 'Data saved successfully'})
+
+@app.route('/templates/previousExam.html')
+def home():
+    # Read the contents of the text file
+    with open('data.txt', 'r') as file:
+        file_content = file.read()
+    
+    # Pass the content to the template
+    return render_template_string('previousExam.html', file_content=file_content)
 
     
     # file_content = f'Text Box 1: {text1}\nText Box 2: {text2}'

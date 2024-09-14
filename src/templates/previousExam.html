@@ -14,6 +14,7 @@
             text-align: center;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
         }
@@ -22,9 +23,23 @@
             color: orange;
             font-size: 24px;
         }
+
+        .content {
+            background-color: #800000; /* Darker maroon */
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 80%;
+            text-align: left;
+            overflow: auto; /* Adds scroll if content is too large */
+        }
     </style>
 </head>
 <body>
     <h1>Below are the previous exams data</h1>
+    <div class="content">
+        {{ file_content|safe }}
+    </div>
 </body>
 </html>
