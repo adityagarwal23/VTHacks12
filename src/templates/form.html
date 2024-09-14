@@ -12,6 +12,10 @@
             color: white;
             margin: 0;
             padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         h1, h4 {
@@ -19,18 +23,30 @@
             text-align: center;
         }
 
-        p {
-            color: white;
-            padding: 0 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
+        .form-container {
             background-color: #800000; /* Darker maroon */
             border-radius: 10px;
+            padding: 20%;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            padding: 20px;
+            text-align: center;
+            width: 600px; /* Set the width of the card */
+            max-width: 100%; /* Ensure it doesn't overflow on smaller screens */
+        }
+
+        form {
+            margin: 0 auto;
+        }
+
+        label, input {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        input {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
         }
 
         button {
@@ -54,14 +70,6 @@
             width: 150px;
         }
 
-        /* Corner text */
-        .corner-text {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            color: orange;
-            font-size: 14px;
-        }
         .custom-image {
             width: 200px;
             height: 100px;
@@ -70,19 +78,64 @@
             top: 10px;
             right: 5px;
         }
+
+        /* Flexbox to center the form content */
+        .centered-div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full height to center vertically */
+        }
+        nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0px;
+            background-color: #800000; /* Dark maroon */
+        }
+
+        nav a {
+            background-color: orange;
+            color: maroon;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background-color: #ff9933; /* Lighter orange on hover */
+            color: maroon;
+        }
     </style>
 </head>
 <body>
-    <h1>RateMyExam</h1>
-    <h4>Made for Students by Students</h4>
-    <img src = "/images/Virginia-Tech-Logo.png" class = "custom-image">
-    <form id="textForm">
-        <label for="text1">Department:</label><br>
-        <input type="text" id="text1" name="text1"><br><br>
-        <label for="text2">Course Number:</label><br>
-        <input type="text" id="text2" name="text2"><br><br>
-        <button type="button" onclick="submitForm()">Submit</button>
-    </form>
+    <nav>
+        <a href="/">Home</a>
+    </nav>
+    <div class="centered-div">
+        <div class="form-container">
+            <h1>RateMyExam</h1>
+            <h4>Created by Students for Students</h4>
+            <form id="textForm">
+                <label for="text1">Department:</label>
+                <input type="text" id="text1" name="text1"><br>
+                <label for="text2">Course Number:</label>
+                <input type="text" id="text2" name="text2"><br>
+                <label for="text3">Teacher Last Name:</label>
+                <input type="text" id="text3" name="text3"><br>
+                <label for="text4">Difficulty of Exam (1-10)</label>
+                <input type="number" id="text4" name="text4"><br>
+                <label for="text5">Hours Spent Studying</label>
+                <input type="number" id="text5" name="text5"><br>
+                <label for="text6">Final Score on the Exam</label>
+                <input type="number" id="text6" name="text6"><br>
+                <button type="button" onclick="submitForm()">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <img src="/images/Virginia-Tech-Logo.png" class="custom-image">
 
     <script>
         function submitForm() {
