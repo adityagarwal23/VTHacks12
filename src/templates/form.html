@@ -139,19 +139,27 @@
 
     <script>
         function submitForm() {
-            const text1 = document.getElementById('text1').value;
-            const text2 = document.getElementById('text2').value;
-            const text3 = document.getElementById('text3').value;
-            const text4 = document.getElementById('text4').value;
-            const text5 = document.getElementById('text5').value;
-            const text6 = document.getElementById('text6').value;
+            const department = document.getElementById('department').value;
+            const course_number = document.getElementById('course_number').value;
+            const professor_last_name = document.getElementById('professor_last_name').value;
+            const exam_difficulty = document.getElementById('exam_difficulty').value;
+            const exam_score = docuemnt.getElementById('exam_score').value;
+            const hours_spent_studying = document.getElementById('hours_spent_studying').value;
+            
 
             fetch('/save-file', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ text1, text2, text3, text4, text5, text6 })
+                body: JSON.stringify({
+                    department,
+                    course_number,
+                    professor_last_name,
+                    exam_difficulty,
+                    exam_score,
+                    hours_spent_studying
+                })
             })
             .then(response => response.json())
             .then(result => alert(result.message || result.error))

@@ -41,5 +41,15 @@
     <div class="content">
         {{ file_content|safe }}
     </div>
+    <script>
+        document.getElementById('loadContent').addEventListener('click', function() {
+            fetch('/text-content')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('textContent').textContent = data.content;
+                })
+                .catch(error => console.error('Error:', error))
+        });
+    </script>
 </body>
 </html>

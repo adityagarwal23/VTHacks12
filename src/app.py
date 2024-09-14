@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, send_from_directory, render_template_string
+import sqlite3
 import os
 import main
 
@@ -8,6 +9,12 @@ FILES_DIR = 'files'
 # Ensure the 'files' directory exists
 if not os.path.exists(FILES_DIR):
     os.makedirs(FILES_DIR)
+
+    DATABASE = 'exams.db'
+
+    def get_db():
+        conn = sqlite3.connect(DATABASE)
+        return conn
 
 @app.route('/')
 def index():
@@ -38,6 +45,31 @@ def save_file():
     text4 = data.get('text4')
     text5 = data.get('text5')
     text6 = data.get('text6')
+    
+    data = request.json
+    department = data.get('department')
+    course_number = data.get('course_number')
+    professor_last_name = data.get('professor_last_name')
+    exam_difficulty = data.get('exam difficulty')
+    exam_score = data.get('exam_score')
+    hours_spent_studying = data.get('hours_spent_studying')
+
+    if not all([department, course_number, professor_last_name, exam_difficulty, exam_score, hours_spent_studying]):
+        return jsonify({'error': 'All fields must be filled out.'}), 400
+    
+    try:
+        conn = get_db()
+        cursor = conn.cursor()
+        cursor.execute('''
+                       INSERT INTO exams (department, course_number, professor_last_name, exam_difficulty, exam_score, hours_spent_studying)
+                       VALUES(?, ?, ?, ?, ?, ?)
+                    ''', (department, course_number, professor_last_name, exam_difficulty, exam_score, hours_spent_studying))
+        conn.commit()
+        conn.close()
+        return jsonify({'message': 'Data saved successfully.'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 
     # if not text1 or not text2 or not text3 or not text4 or not text5 or not text6:
     #     return jsonify({'error': 'Both text boxes must be filled out.'}), 400
