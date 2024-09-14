@@ -58,7 +58,6 @@ def save_file():
 
     if all([department, course_number, professor_last_name, exam_difficulty, exam_score, hours_spent_studying]):
         return jsonify({'error': 'All fields must be filled out.'}), 400
-    print("hi")
     try:
         conn = get_db()
         cursor = conn.cursor()

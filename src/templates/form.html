@@ -139,19 +139,12 @@
 
     <script>
         function submitForm() {
-            console.log("najdnanjdn")
             const department = document.getElementById('department').value;
-            console.log(department)
             const course_number = document.getElementById('course_number').value;
-            console.log(course_number)
             const professor_last_name = document.getElementById('professor_last_name').value;
-            console.log(professor_last_name)
             const exam_difficulty = document.getElementById('exam_difficulty').value;
-            console.log(exam_difficulty)
             const exam_score = document.getElementById('exam_score').value;
-            console.log(exam_score)
             const hours_spent_studying = document.getElementById('hours_spent_studying').value;
-            console.log(hours_spent_studying)
             
 
             fetch('/save-file', {
