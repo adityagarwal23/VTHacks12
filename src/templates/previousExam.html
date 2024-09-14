@@ -34,13 +34,42 @@
             text-align: left;
             overflow: auto; /* Adds scroll if content is too large */
         }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            width: 200px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: orange;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ff9933;
+        }
     </style>
 </head>
 <body>
     <h1>Below are the previous exams data</h1>
-    <div class="content">
-        {{ file_content|safe }}
-    </div>
+
+    <form action="/submit" method="POST">
+        <input type="text" name="department" placeholder="Department" required>
+        <input type="text" name="courseNumber" placeholder="Course Number" required>
+        <button type="submit">Submit</button>
+    </form>
+
     <script>
         document.getElementById('loadContent').addEventListener('click', function() {
             fetch('/text-content')
@@ -48,7 +77,7 @@
                 .then(data => {
                     document.getElementById('textContent').textContent = data.content;
                 })
-                .catch(error => console.error('Error:', error))
+                .catch(error => console.error('Error:', error));
         });
     </script>
 </body>
