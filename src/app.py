@@ -1,4 +1,4 @@
-from flask import Flask, request, send_from_directory
+from flask import Flask, jsonify, request, send_from_directory
 import sqlite3
 import os
 
@@ -62,8 +62,8 @@ def VTimage():
 @app.route('/get-data', methods=['POST'])
 def get_data():
     data = request.json
-    department = data.get('department')
-    course_number = data.get('course_number')
+    department = data.get('department').lower()
+    course_number = data.get('course_number').lower()
 
     if not department or not course_number:
         return jsonify({'error': 'Department and course number are required.'}), 400
@@ -101,12 +101,12 @@ def get_data():
 @app.route('/save-file', methods=['POST'])
 def save_file():
     data = request.json
-    department = data.get('department')
-    course_number = data.get('course_number')
-    professor_last_name = data.get('professor_last_name')
-    exam_difficulty = data.get('exam_difficulty')
-    exam_score = data.get('exam_score')
-    hours_spent_studying = data.get('hours_spent_studying')
+    department = data.get('department').lower()
+    course_number = data.get('course_number').lower()
+    professor_last_name = data.get('professor_last_name').capitalize()
+    exam_difficulty = data.get('exam_difficulty').lower()
+    exam_score = data.get('exam_score').lower()
+    hours_spent_studying = data.get('hours_spent_studying').lower()
 
     if not all([department, course_number, professor_last_name, exam_difficulty, exam_score, hours_spent_studying]):
         return jsonify({'error': 'All fields must be filled out.'}), 400
