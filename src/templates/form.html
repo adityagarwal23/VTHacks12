@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: maroon;
+            background-color: maroon; /* Maroon background */
             color: white;
             margin: 0;
             padding: 0;
@@ -24,68 +24,69 @@
         }
 
         .form-container {
-            background-color: #800000; /* Darker maroon */
-            border-radius: 10px;
-            padding: 20%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #4d0000; /* Darker maroon for form card */
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            width: 600px; /* Width for the card */
+            max-width: 100%;
             text-align: center;
-            width: 600px; /* Set the width of the card */
-            max-width: 100%; /* Ensure it doesn't overflow on smaller screens */
         }
 
         form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
             margin: 0 auto;
         }
 
         label, input {
-            display: block;
             width: 100%;
-            margin-bottom: 15px;
+            max-width: 400px;
         }
 
         input {
-            padding: 10px;
+            padding: 12px 15px;
             border: none;
             border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
         }
 
         button {
             background-color: orange;
             color: maroon;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 5px;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
-            background-color: #ff9933; /* Lighter orange */
+            background-color: #ff9933; /* Lighter orange on hover */
         }
 
-        /* Virginia Tech logo styling */
-        .logo {
-            display: block;
-            margin: 20px auto;
-            width: 150px;
-        }
-
+        /* Logo styling */
         .custom-image {
             width: 200px;
             height: 100px;
-            object-fit: contain; 
-            position: absolute; 
+            object-fit: contain;
+            position: absolute;
             top: 10px;
             right: 5px;
         }
 
-        /* Flexbox to center the form content */
+        /* Flexbox to center the content */
         .centered-div {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Full height to center vertically */
+            height: 100vh;
         }
+
         nav {
             position: absolute;
             top: 0;
@@ -107,6 +108,24 @@
             background-color: #ff9933; /* Lighter orange on hover */
             color: maroon;
         }
+
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            input {
+                max-width: 100%;
+            }
+
+            button {
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -119,17 +138,17 @@
             <h4>Created by Students for Students</h4>
             <form id="textForm">
                 <label for="department">Department:</label>
-                <input type="text" id="department" name="department"><br>
+                <input type="text" id="department" name="department" placeholder="Enter department"><br>
                 <label for="course_number">Course Number:</label>
-                <input type="text" id="course_number" name="course_number"><br>
+                <input type="text" id="course_number" name="course_number" placeholder="Enter course number"><br>
                 <label for="professor_last_name">Teacher Last Name:</label>
-                <input type="text" id="professor_last_name" name="professor_last_name"><br>
-                <label for="exam_difficulty">Difficulty of Exam (1-10)</label>
-                <input type="number" id="exam_difficulty" name="exam_difficulty"><br>
-                <label for="exam_score">Hours Spent Studying</label>
-                <input type="number" id="exam_score" name="exam_score"><br>
-                <label for="hours_spent_studying">Final Score on the Exam</label>
-                <input type="number" id="hours_spent_studying" name="hours_spent_studying"><br>
+                <input type="text" id="professor_last_name" name="professor_last_name" placeholder="Enter professor's last name"><br>
+                <label for="exam_difficulty">Difficulty of Exam (1-10):</label>
+                <input type="number" id="exam_difficulty" name="exam_difficulty" min="1" max="10" placeholder="Rate the difficulty"><br>
+                <label for="exam_score">Hours Spent Studying:</label>
+                <input type="number" id="exam_score" name="exam_score" placeholder="Enter hours spent"><br>
+                <label for="hours_spent_studying">Final Score on the Exam:</label>
+                <input type="number" id="hours_spent_studying" name="hours_spent_studying" placeholder="Enter exam score"><br>
                 <button type="button" onclick="submitForm()">Submit</button>
             </form>
         </div>
@@ -145,7 +164,6 @@
             const exam_difficulty = document.getElementById('exam_difficulty').value;
             const exam_score = document.getElementById('exam_score').value;
             const hours_spent_studying = document.getElementById('hours_spent_studying').value;
-            
 
             fetch('/save-file', {
                 method: 'POST',

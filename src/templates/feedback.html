@@ -14,7 +14,6 @@
             padding: 0;
             height: 100vh;
             display: flex;
-            flex-direction: column; 
             justify-content: center;
             align-items: center;
             text-align: center;
@@ -22,7 +21,7 @@
 
         h1 {
             color: orange;
-            font-size: 48px;
+            font-size: 36px;
             margin-bottom: 20px;
         }
 
@@ -43,19 +42,20 @@
         }
 
         .container {
-            background-color: #800000; /* Dark maroon */
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #4d0000; /* Darker maroon for card */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
             max-width: 600px;
             width: 100%;
         }
+
         /* Navbar styling */
         nav {
             position: absolute;
             top: 0;
             left: 0;
-            padding: 0px;
+            padding: 10px;
             background-color: #800000; /* Dark maroon */
         }
 
@@ -72,10 +72,24 @@
             background-color: #ff9933; /* Lighter orange on hover */
             color: maroon;
         }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            p, a {
+                font-size: 16px;
+            }
+        }
     </style>
 </head> 
 <body>
-<!-- Navbar with button in the top-left corner -->
+    <!-- Navbar with button in the top-left corner -->
     <nav>
         <a href="/">Home</a>
     </nav>
@@ -84,6 +98,5 @@
         <p>Please send your feedback or questions to the following email:</p>
         <a href="mailto:adityaagarwal@vt.edu">adityaagarwal@vt.edu</a>
     </div>
-
 </body>
 </html>
