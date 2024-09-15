@@ -1,2 +1,7 @@
 files/*
 __pycache__/*
+
+*.pyc
+
+#ignore database
+*.db

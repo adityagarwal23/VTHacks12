@@ -1,0 +1,7 @@
+services:
+  flaskapp: 
+    build:
+      context: ./
+    stop_signal: SIGINT
+    ports:
+      - '80:5000'
