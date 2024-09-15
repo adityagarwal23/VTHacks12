@@ -25,18 +25,38 @@ def index():
 
 @app.route('/templates/previousExam.html')
 def previousExam():
+    """gives the html for the page to serch for previous exams to the client
+
+    Returns:
+        html: the html of the previousExam page
+    """    
     return send_from_directory('templates', 'previousExam.html')
 
 @app.route('/templates/form.html')
 def form():
+    """gives the html for the form to add an exam to the database
+
+    Returns:
+        html: the form as an html
+    """    
     return send_from_directory('templates', 'form.html')
 
 @app.route('/templates/feedback.html')
 def feedback():
+    """gives the contact us/feadbak page to the user
+
+    Returns:
+        html: the html page to contact us
+    """    
     return send_from_directory('templates', 'feedback.html')
 
 @app.route('/images/Virginia-Tech-Logo.png')
 def VTimage():
+    """gives the logo of our VT
+
+    Returns:
+        png: the image of the 
+    """    
     return send_from_directory('images', 'Virginia-Tech-Logo.png')
 
 @app.route('/get-data', methods=['POST'])
