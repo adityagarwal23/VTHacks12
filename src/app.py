@@ -1,22 +1,26 @@
-from flask import Flask, request, jsonify, send_from_directory, render_template_string
+from flask import Flask, request, send_from_directory
 import sqlite3
 import os
 
 app = Flask(__name__)
-FILES_DIR = 'files'
-
-# Ensure the 'files' directory exists
-if not os.path.exists(FILES_DIR):
-    os.makedirs(FILES_DIR)
 
 DATABASE = 'exams.db'
 
+
 def get_db():
+    """
+    get the database
+    """
     conn = sqlite3.connect(DATABASE)
     return conn
 
 @app.route('/')
 def index():
+    """gives the home page to the client
+
+    Returns:
+        html: the home screen html
+    """    
     return send_from_directory('templates', 'index.html')
 
 @app.route('/templates/previousExam.html')
