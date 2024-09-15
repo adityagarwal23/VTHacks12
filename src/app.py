@@ -103,7 +103,7 @@ def save_file():
     data = request.json
     department = data.get('department').lower()
     course_number = data.get('course_number').lower()
-    professor_last_name = data.get('professor_last_name').capitalize()
+    professor_last_name = data.get('professor_last_name').lower().capitalize()
     exam_difficulty = data.get('exam_difficulty').lower()
     exam_score = data.get('exam_score').lower()
     hours_spent_studying = data.get('hours_spent_studying').lower()
