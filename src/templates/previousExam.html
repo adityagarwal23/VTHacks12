@@ -168,11 +168,15 @@
                 } else {
                     let html = '<table><tr><th>Professor Last Name</th><th>Average Exam Difficulty</th><th>Average Exam Score</th><th>Average Hours Spent Studying</th></tr>';
                     data.forEach(row => {
+                        const avgExamDifficulty = parseFloat(row.avg_exam_difficulty).toFixed(1);
+                        const avgExamScore = parseFloat(row.avg_exam_score).toFixed(1);
+                        const avgHoursSpentStudying = parseFloat(row.avg_hours_spent_studying).toFixed(1);
+
                         html += `<tr>
                             <td>${row.professor_last_name}</td>
-                            <td>${row.avg_exam_difficulty}</td>
-                            <td>${row.avg_exam_score}</td>
-                            <td>${row.avg_hours_spent_studying}</td>
+                            <td>${avgExamDifficulty}</td>
+                            <td>${avgExamScore}</td>
+                            <td>${avgHoursSpentStudying}</td>
                         </tr>`;
                     });
                     html += '</table>';
